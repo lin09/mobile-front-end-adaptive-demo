@@ -12,6 +12,7 @@ yarn
 ### Compiles and hot-reloads for development
 ```
 yarn serve
+open links http://localhost:8080/
 ```
 
 ### Compiles and minifies for production

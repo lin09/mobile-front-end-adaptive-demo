@@ -31,7 +31,7 @@ module.exports = (env, argv) => {
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          // postcss-loader 要比 sass-loader 前，否则 cssnano 不无效结果。
+          // postcss-loader 要比 sass-loader 前，否则 cssnano 不无效结果。踩了一天的坑，晚上23:23才爬出来55555。postcss-loader在后时 autoprefixer 有效 cssnano 却无效，真TMD。
           'postcss-loader',
           'sass-loader'
         ],
