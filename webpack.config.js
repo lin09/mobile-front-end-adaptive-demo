@@ -1,17 +1,13 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const pxtorem = require('postcss-pxtorem')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const config = require('./config/config')
 
 module.exports = (env, argv) => {
   const devMode = argv.mode !== 'production'
 
   return {
-    entry: './src/index.js',
     output: {
-      filename: devMode ? 'bundle.js' : 'bundle.[hash].js',
-      path: path.resolve(__dirname, 'dist')
+      filename: devMode ? 'bundle.js' : 'bundle.[hash].js'
     },
     plugins: [
       new MiniCssExtractPlugin({
@@ -26,27 +22,18 @@ module.exports = (env, argv) => {
       rules: [{
         test: /\.html$/,
         use: {
-          loader: 'html-loader'
+          loader: 'html-loader',
+          options: { minimize: !devMode }
         }
       },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: [
-                pxtorem({
-                  rootValue: config.pxToRemRootValue,
-                  propList: ['*']
-                })
-              ]
-            }
-          }
+          // postcss-loader 要比 sass-loader 前，否则 cssnano 不无效结果。
+          'postcss-loader',
+          'sass-loader'
         ],
       }]
     }
