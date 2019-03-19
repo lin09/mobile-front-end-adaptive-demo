@@ -9,7 +9,7 @@
 * iPhone6/7/8
 ![iPhone6/7/8](https://lin09.github.io/mobile-front-end-adaptive-demo/screenshot/iPhone6~8.jpg)
 * iPhone6/7/8Plus
-![iPhone6/7/8Plus](https://lin09.github.io/mobile-front-end-adaptive-demo/screenshot/iPhone6~8plus.jpg)
+![iPhone6/7/8Plus](https://lin09.github.io/mobile-front-end-adaptive-demo/screenshot/iPhone6~8Plus.jpg)
 * iPhone5/ES
 ![iPhone5/ES](https://lin09.github.io/mobile-front-end-adaptive-demo/screenshot/iPhone5.jpg)
 * Pixel 2
