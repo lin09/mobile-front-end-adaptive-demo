@@ -1,74 +1,41 @@
 import './index.scss'
-import { pxToRemRootValue, designWidth, pageMaxWidth } from '../config/config'
+import adaptive from '@lin09/adaptivejs'
 
-const infoDoc = document.createElement('div')
-infoDoc.className = 'adaptive'
-document.body.prepend(infoDoc)
+adaptive.run()
 
-// 组装meta[name=viewport]的content值
-const createViewportContent = (scale) => {
-  return `width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`
+const createText = ({ fontSize, pageWidth, scale }) => `{
+  fontSize  : ${ fontSize },
+  pageWidth : ${ pageWidth },
+  scale     : ${ scale }
 }
+`
+window.addEventListener('load', () => {
+  const viewport = document.getElementsByName('viewport')[0]
 
-// 创建meta[name=viewport]
-const meta = document.createElement('meta')
-meta.name = 'viewport'
-// 添加meta[name=viewport]head
-document.head.append(meta)
+  const adaptiveEl = document.createElement('div')
+  adaptiveEl.className = 'adaptive'
+  const infoDoc = document.createElement('pre')
+  adaptiveEl.prepend(infoDoc)
+  document.body.prepend(adaptiveEl)
 
-// 设置页面缩放
-const setViewportScaleBase = (scale, callBack) => {
-  if (setViewportScaleBase.scale === scale) {
-    callBack()
-  } else {
-    clearTimeout(setViewportScaleBase.timeout)
-    setViewportScaleBase.scale = scale
-    meta.content = createViewportContent(scale)
-    setViewportScaleBase.timeout = setTimeout(callBack, 100)
-  }
-}
-const initViewportScale = (callBack) => {
-  setViewportScaleBase(1, callBack)
-}
-initViewportScale()
-const setViewportScale = (callBack) => {
-  initViewportScale(() => {
-    if (window.devicePixelRatio > 1) {
-      let scale = document.documentElement.clientWidth / designWidth
-      setViewportScaleBase(scale > 1 ? 1 : scale, callBack)
-    } else {
-      callBack()
+
+  // 监控变化
+  const resize = () => {
+    let pageWidth = document.documentElement.clientWidth
+    if (pageWidth > 1024) {
+      pageWidth = 1024
+    } else if (pageWidth < 750) {
+      pageWidth = 750
     }
-  })
-}
 
-// 设置hmtl的字体大小
-const setHtmlFontSize = () => {
-  let pageWidth = document.documentElement.clientWidth
-  pageWidth = pageWidth > pageMaxWidth ? pageMaxWidth : pageWidth
-  // fontSize / pxToRemRootValue = pageWidth / designWidth
-  let fontSize = pageWidth / designWidth * pxToRemRootValue
-  // 不小于12，如chrome不支持小于12px字体
-  fontSize = fontSize < 12 ? 12 : fontSize
-  fontSize = fontSize + 'px'
-  document.documentElement.style.fontSize = fontSize
+    infoDoc.innerText = createText({
+      fontSize: document.documentElement.style.fontSize,
+      pageWidth: pageWidth + 'px',
+      scale: viewport.content.replace(/.+scale=((.+),)?.+/,'$2')
+    })
+  }
 
-  infoDoc.innerText = JSON.stringify({
-    fontSize,
-    pageWidth,
-    scale: setViewportScaleBase.scale
-  }).replace(/,/g, ',\r')
-}
+  resize()
 
-const oldResize = window.onresize
-// 检查之前是否有程序监控窗口大小变化
-const resizeIsFun = typeof (()=> {}) === typeof oldResize
-const newResize = () => {
-  window.onresize = null
-  setViewportScale(() => {
-    setHtmlFontSize()
-    resizeIsFun && oldResize()
-    window.onresize = newResize
-  })
-}
-newResize()
+  window.addEventListener('resize', resize)
+})

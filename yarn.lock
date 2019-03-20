@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@lin09/adaptivejs@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@lin09/adaptivejs/-/adaptivejs-1.0.1.tgz#4c22b28c6dbf4f3cad1ea482305f88e1dfc11dd1"
+  integrity sha512-JDHa0lSteZxqi0HYjOLnxRsy2qlBWXgnJSzyCUHNfCuNagm1kYtoOooi631wtp4nnJU7ZdjtqcWuk/A2IWd+Lw==
+
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"

@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/lin09/mobile-front-end-adaptive-demo#readme",
   "devDependencies": {
+    "@lin09/adaptivejs": "^1.0.1",
     "autoprefixer": "^9.4.3",
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.8",

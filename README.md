@@ -1,9 +1,11 @@
 [![Build Status](https://travis-ci.org/lin09/mobile-front-end-adaptive-demo.svg?branch=master)](https://travis-ci.org)
 
+
 # web 移动前端自适应演示
 #### 物理像素小于750设备使用 scale 调节缩小，大于750的则使用 html font-size 调节放大。可解决全部机型的1px(0.5px)问题。
 
 - [实例](https://lin09.github.io/mobile-front-end-adaptive-demo/dist/index.html)
+* [adaptivejs](https://github.com/lin09/adaptivejs)
 
 ## 截图
 * iPhone6/7/8
